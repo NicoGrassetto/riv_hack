@@ -1,0 +1,613 @@
+.sprint-game {
+  padding: 1rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+}
+
+/* Loading & Error States */
+.sprint-game-loading,
+.sprint-game-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #3B82F6;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.sprint-game-error .error-icon {
+  font-size: 3rem;
+}
+
+.sprint-game-error button {
+  padding: 0.75rem 2rem;
+  background: #3B82F6;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sprint-game-error button:hover {
+  background: #2563EB;
+}
+
+/* Header */
+.sprint-game-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #3B82F6, #10B981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: #9CA3AF;
+  font-size: 1.1rem;
+}
+
+/* Summary Cards */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.summary-card.highlight {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+  border-color: #3B82F6;
+}
+
+.card-icon {
+  font-size: 2rem;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-value {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.card-label {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+}
+
+/* Tabs */
+.sprint-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.sprint-tabs button {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #9CA3AF;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.sprint-tabs button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.sprint-tabs button.active {
+  background: linear-gradient(135deg, #3B82F6, #10B981);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* Leaderboard Section */
+.leaderboard-section h2,
+.sprints-section h2,
+.teams-section h2,
+.burndown-section h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.leaderboard-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.leaderboard-item.rank-1 {
+  background: linear-gradient(90deg, rgba(234, 179, 8, 0.2), transparent);
+}
+
+.leaderboard-item.rank-2 {
+  background: linear-gradient(90deg, rgba(156, 163, 175, 0.2), transparent);
+}
+
+.leaderboard-item.rank-3 {
+  background: linear-gradient(90deg, rgba(180, 83, 9, 0.2), transparent);
+}
+
+.leaderboard-item .rank {
+  font-size: 1.5rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.team-badge {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: white;
+}
+
+.team-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.team-stats {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+}
+
+.team-metrics {
+  display: flex;
+  gap: 2rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.metric.highlight .metric-value {
+  color: #10B981;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+/* Sprint Progress Section */
+.sprint-progress-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sprint-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sprint-label {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sprint-name {
+  font-weight: 600;
+}
+
+.sprint-date {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+.sprint-bar-wrapper {
+  flex: 1;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sprint-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  border-radius: 8px;
+  transition: width 0.5s ease-out;
+}
+
+.bar-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.sprint-count {
+  width: 80px;
+  text-align: right;
+  color: #9CA3AF;
+  font-size: 0.875rem;
+}
+
+.sprint-legend {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #9CA3AF;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+/* Teams Section */
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.team-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border-top: 4px solid;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.team-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.team-card.selected {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.team-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.team-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.team-card-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+.completion-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.completion-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
+.team-types {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.type-badge {
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+
+.team-velocity {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-velocity h4 {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #9CA3AF;
+}
+
+.velocity-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.velocity-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.velocity-sprint {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+.velocity-value {
+  font-weight: 600;
+}
+
+/* Burndown Section */
+.burndown-chart {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.chart-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.chart-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0;
+  color: #9CA3AF;
+  font-size: 0.75rem;
+  width: 40px;
+  text-align: right;
+}
+
+.chart-area {
+  flex: 1;
+  height: 300px;
+  position: relative;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.ideal-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.3) 0%, transparent 100%);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+.actual-line {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.data-point {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #3B82F6;
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.data-point::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.point-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.data-point:hover .point-label {
+  opacity: 1;
+}
+
+.chart-x-axis {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #9CA3AF;
+  font-size: 0.75rem;
+}
+
+.burndown-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.burndown-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .team-metrics {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .sprint-bar-container {
+    flex-wrap: wrap;
+  }
+  
+  .sprint-label {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .sprint-count {
+    display: none;
+  }
+  
+  .velocity-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .burndown-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,10 @@
+# Terminal 1 - Start server
+cd c:\temp\NMBS_Gamify
+npm start
+
+# Terminal 2 - Start client  
+cd c:\temp\NMBS_Gamify\client
+npm run dev
+
+# Optional - Reseed database with new game data
+npm run seed
