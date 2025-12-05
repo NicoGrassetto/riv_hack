@@ -25,8 +25,27 @@ const badgeSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['achievement', 'milestone', 'special', 'seasonal'],
+    enum: [
+      'achievement', 
+      'milestone', 
+      'special', 
+      'seasonal', 
+      'team',
+      'delivery',
+      'predictability',
+      'flow',
+      'collaboration',
+      'improvement'
+    ],
     default: 'achievement'
+  },
+  points: {
+    type: Number,
+    default: 0
+  },
+  awardCondition: {
+    type: String,
+    default: ''
   },
   isActive: {
     type: Boolean,

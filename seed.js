@@ -9,14 +9,18 @@ const Challenge = require('./server/models/Challenge');
 // Based on team sprint performance metrics
 // ============================================
 const badges = [
-  // Team Color Badges
+  // ============================================
+  // TEAM COLOR BADGES
+  // ============================================
   {
     name: 'Blue Team Champion',
     description: 'Member of the Blue Team with outstanding performance',
     icon: '💙',
     color: '#3B82F6',
     rarity: 'common',
-    category: 'team'
+    category: 'team',
+    points: 0,
+    awardCondition: 'Assigned to Blue Team'
   },
   {
     name: 'Green Machine',
@@ -24,7 +28,9 @@ const badges = [
     icon: '💚',
     color: '#10B981',
     rarity: 'common',
-    category: 'team'
+    category: 'team',
+    points: 0,
+    awardCondition: 'Assigned to Green Team'
   },
   {
     name: 'Orange Crusader',
@@ -32,7 +38,9 @@ const badges = [
     icon: '🧡',
     color: '#F97316',
     rarity: 'common',
-    category: 'team'
+    category: 'team',
+    points: 0,
+    awardCondition: 'Assigned to Orange Team'
   },
   {
     name: 'Golden Achiever',
@@ -40,17 +48,175 @@ const badges = [
     icon: '🏆',
     color: '#F59E0B',
     rarity: 'legendary',
-    category: 'achievement'
+    category: 'achievement',
+    points: 10,
+    awardCondition: 'Team achieves 100% feature completion'
   },
-  
-  // Sprint Performance Badges
+
+  // ============================================
+  // 🎮 AHA JUGAMOS - IMPROVEMENT BADGES
+  // ============================================
+  {
+    name: 'Goal Getter',
+    description: 'Self-defined improvement goal met - team sets a micro-goal and pipeline checks it',
+    icon: '🎯',
+    color: '#10B981',
+    rarity: 'rare',
+    category: 'improvement',
+    points: 5,
+    awardCondition: 'Team sets a micro-goal and achieves it (verified by pipeline)'
+  },
+  {
+    name: 'Flow Optimizer',
+    description: 'Experiment or flip that improves flow by removing a dependency or reducing lead time',
+    icon: '⚡',
+    color: '#6366F1',
+    rarity: 'epic',
+    category: 'improvement',
+    points: 5,
+    awardCondition: 'Implement an experiment/flip that removes dependency or reduces lead time'
+  },
+  {
+    name: 'Retro Rockstar',
+    description: 'Best retrospective with 20+ point improvements identified and actioned',
+    icon: '🌟',
+    color: '#EC4899',
+    rarity: 'legendary',
+    category: 'improvement',
+    points: 10,
+    awardCondition: 'Retrospective generates 20+ improvement points'
+  },
+  {
+    name: 'Critical Contributor',
+    description: 'Critical initiative & Collaboration topic in Top 3 for the team',
+    icon: '🔝',
+    color: '#F59E0B',
+    rarity: 'epic',
+    category: 'collaboration',
+    points: 5,
+    awardCondition: 'Team collaboration topic ranks in Top 3'
+  },
+  {
+    name: 'Score Surge',
+    description: 'Gross team score improvement - 10 point improvement in the assessed item',
+    icon: '📈',
+    color: '#22C55E',
+    rarity: 'rare',
+    category: 'improvement',
+    points: 5,
+    awardCondition: 'Team achieves 10 point improvement in assessed item'
+  },
+  {
+    name: 'Fast Factor',
+    description: 'Quick wins achieved - one per turn per sprint flip',
+    icon: '🤗',
+    color: '#14B8A6',
+    rarity: 'common',
+    category: 'improvement',
+    points: 2,
+    awardCondition: 'Achieve a fast factor (one per turn per sprint flip)'
+  },
+  {
+    name: 'Collective Champion',
+    description: 'Collective goal achieved - API task, challenge, or sub-goals completed together',
+    icon: '🤝',
+    color: '#8B5CF6',
+    rarity: 'epic',
+    category: 'collaboration',
+    points: 5,
+    awardCondition: 'Complete collective goal (API task, challenge, sub-goals) - bonus to all contributing teams'
+  },
+
+  // ============================================
+  // 🎮 AHA JUGAMOS - PREDICTABILITY BADGES
+  // ============================================
+  {
+    name: 'Predictability Pro',
+    description: 'Predictability in top 20% of all teams',
+    icon: '🔮',
+    color: '#A855F7',
+    rarity: 'legendary',
+    category: 'predictability',
+    points: 10,
+    awardCondition: 'Team predictability ranks in top 20%'
+  },
+  {
+    name: 'On-Time Titans',
+    description: 'Maximum items delivered by due date with highest publish count and touch',
+    icon: '⏰',
+    color: '#EF4444',
+    rarity: 'legendary',
+    category: 'delivery',
+    points: 10,
+    awardCondition: 'Max items delivered by due date (publish count + touch)'
+  },
+  {
+    name: 'Sprint Flipper',
+    description: 'Delivered planned sprint flip(s) on time',
+    icon: '🔄',
+    color: '#0EA5E9',
+    rarity: 'rare',
+    category: 'delivery',
+    points: 5,
+    awardCondition: 'Deliver planned sprint flip(s) on schedule'
+  },
+  {
+    name: 'Next Sprint Ready',
+    description: 'Converted next sprint successfully - supports stable state for predictive planning',
+    icon: '➡️',
+    color: '#06B6D4',
+    rarity: 'common',
+    category: 'predictability',
+    points: 2,
+    awardCondition: 'Successfully convert and prepare next sprint'
+  },
+  {
+    name: 'Risk Ranger',
+    description: 'Act risk window maintained within 1-4 days scope',
+    icon: '🛡️',
+    color: '#F97316',
+    rarity: 'rare',
+    category: 'predictability',
+    points: 3,
+    awardCondition: 'Maintain risk window within 1-4 days scope'
+  },
+
+  // ============================================
+  // 🎮 AHA JUGAMOS - FLOW & MASTERY BADGES
+  // ============================================
+  {
+    name: 'Momentum Masters',
+    description: 'Highest average A/B in-tact across teams - mastering the flow',
+    icon: '🏃',
+    color: '#8B5CF6',
+    rarity: 'legendary',
+    category: 'flow',
+    points: 15,
+    awardCondition: 'Achieve highest average A/B in-tact across all teams'
+  },
+  {
+    name: 'Plan-Sprint Pros',
+    description: 'Highest percentage of items delivered on planned sprint',
+    icon: '📋',
+    color: '#10B981',
+    rarity: 'legendary',
+    category: 'delivery',
+    points: 10,
+    awardCondition: 'Highest % of items delivered on planned sprint'
+  },
+
+  // ============================================
+  // SPRINT PERFORMANCE BADGES
+  // ============================================
   {
     name: 'Sprint Starter',
     description: 'Contributed to Sprint 1 progress',
     icon: '🚀',
     color: '#6366F1',
     rarity: 'common',
-    category: 'milestone'
+    category: 'milestone',
+    points: 2,
+    awardCondition: 'Contribute to Sprint 1'
   },
   {
     name: 'Sprint Warrior',
@@ -58,7 +224,9 @@ const badges = [
     icon: '⚔️',
     color: '#8B5CF6',
     rarity: 'rare',
-    category: 'milestone'
+    category: 'milestone',
+    points: 5,
+    awardCondition: 'Maintain progress across 3 consecutive sprints'
   },
   {
     name: 'Sprint Master',
@@ -66,7 +234,9 @@ const badges = [
     icon: '👑',
     color: '#A855F7',
     rarity: 'epic',
-    category: 'milestone'
+    category: 'milestone',
+    points: 8,
+    awardCondition: 'Achieve 80%+ completion in a single sprint'
   },
   {
     name: 'Velocity Champion',
@@ -74,17 +244,23 @@ const badges = [
     icon: '📈',
     color: '#EC4899',
     rarity: 'epic',
-    category: 'special'
+    category: 'special',
+    points: 10,
+    awardCondition: 'Improve team velocity by 20% sprint over sprint'
   },
-  
-  // Feature Completion Badges
+
+  // ============================================
+  // FEATURE COMPLETION BADGES
+  // ============================================
   {
     name: 'Feature Finisher',
     description: 'Completed your first feature at 100%',
     icon: '✅',
     color: '#22C55E',
     rarity: 'common',
-    category: 'achievement'
+    category: 'achievement',
+    points: 3,
+    awardCondition: 'Complete first feature at 100%'
   },
   {
     name: 'Story Teller',
@@ -92,7 +268,9 @@ const badges = [
     icon: '📖',
     color: '#14B8A6',
     rarity: 'rare',
-    category: 'achievement'
+    category: 'achievement',
+    points: 5,
+    awardCondition: 'Complete 5 user stories'
   },
   {
     name: 'Feature Factory',
@@ -100,7 +278,9 @@ const badges = [
     icon: '🏭',
     color: '#0EA5E9',
     rarity: 'epic',
-    category: 'achievement'
+    category: 'achievement',
+    points: 8,
+    awardCondition: 'Complete 10 features'
   },
   {
     name: 'Delivery Legend',
@@ -108,35 +288,47 @@ const badges = [
     icon: '🌟',
     color: '#EAB308',
     rarity: 'legendary',
-    category: 'special'
+    category: 'special',
+    points: 15,
+    awardCondition: 'Achieve 100% completion on 20+ features'
   },
-  
-  // Priority Badges
+
+  // ============================================
+  // PRIORITY BADGES
+  // ============================================
   {
     name: 'Priority Hero',
     description: 'Completed a Priority 1 feature',
     icon: '🎯',
     color: '#EF4444',
     rarity: 'rare',
-    category: 'achievement'
+    category: 'achievement',
+    points: 5,
+    awardCondition: 'Complete a Priority 1 feature'
   },
   {
     name: 'High Performer',
-    description: 'Completed 5 high-priority items (Priority 1-5)',
+    description: 'Completed 5 high-priority items (Priority 1-2)',
     icon: '🔥',
     color: '#F97316',
     rarity: 'epic',
-    category: 'achievement'
+    category: 'achievement',
+    points: 8,
+    awardCondition: 'Complete 5 high-priority items (Priority 1-2)'
   },
-  
-  // Collaboration Badges
+
+  // ============================================
+  // COLLABORATION BADGES
+  // ============================================
   {
     name: 'Team Player',
     description: 'Contributed to features across multiple personas',
     icon: '🤝',
     color: '#06B6D4',
     rarity: 'rare',
-    category: 'special'
+    category: 'collaboration',
+    points: 5,
+    awardCondition: 'Contribute to features across multiple personas'
   },
   {
     name: 'Cross-Functional Star',
@@ -144,7 +336,9 @@ const badges = [
     icon: '⭐',
     color: '#8B5CF6',
     rarity: 'rare',
-    category: 'special'
+    category: 'special',
+    points: 5,
+    awardCondition: 'Work on both Stories and Features'
   }
 ];
 

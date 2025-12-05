@@ -1,0 +1,484 @@
+.badge-catalogue-page {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Page Header */
+.badge-catalogue-page .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.badge-catalogue-page .header-content h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.badge-catalogue-page .header-content p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.badge-catalogue-page .header-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge-catalogue-page .stat-badge {
+  text-align: center;
+}
+
+.badge-catalogue-page .stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.badge-catalogue-page .stat-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-catalogue-page .stat-divider {
+  font-size: 2rem;
+  color: #475569;
+  margin: 0 0.5rem;
+}
+
+/* Aha Jugamos Banner */
+.aha-jugamos-banner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+}
+
+.banner-icon {
+  font-size: 3rem;
+  background: rgba(255, 255, 255, 0.2);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.banner-content {
+  flex: 1;
+}
+
+.banner-content h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.banner-content p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+}
+
+.banner-points {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+}
+
+.points-label {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.points-list span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Badge Category */
+.badge-category {
+  margin-bottom: 2.5rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px 16px 0 0;
+  color: #fff;
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 1.5rem;
+}
+
+.category-info {
+  flex: 1;
+}
+
+.category-info h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.category-info p {
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
+.category-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Badges Grid */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 1.5rem;
+  border-radius: 0 0 16px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: none;
+}
+
+/* Badge Card */
+.badge-card {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--badge-color, #6366f1);
+  opacity: 0.5;
+}
+
+.badge-card.earned::before {
+  opacity: 1;
+}
+
+.badge-card.earned {
+  border-color: var(--badge-color);
+}
+
+.badge-card.locked {
+  opacity: 0.7;
+}
+
+.badge-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.badge-card.earned:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--badge-color);
+}
+
+/* Badge Icon */
+.badge-icon-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.badge-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge-card.earned .badge-icon {
+  border-color: var(--badge-color);
+}
+
+.badge-points {
+  position: absolute;
+  bottom: -5px;
+  right: -10px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+/* Badge Info */
+.badge-info {
+  margin-bottom: 1rem;
+}
+
+.badge-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.badge-description {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Badge Footer */
+.badge-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rarity-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: fit-content;
+}
+
+.rarity-tag.rarity-common {
+  background: rgba(107, 114, 128, 0.3);
+  color: #9ca3af;
+}
+
+.rarity-tag.rarity-rare {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.rarity-tag.rarity-epic {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+}
+
+.rarity-tag.rarity-legendary {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(245, 158, 11, 0.2));
+  color: #fbbf24;
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
+}
+
+.award-condition {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.condition-label {
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+.condition-text {
+  color: #cbd5e1;
+}
+
+/* Unlock Hint */
+.unlock-hint {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border: 1px dashed rgba(99, 102, 241, 0.3);
+}
+
+.hint-icon {
+  font-size: 1rem;
+}
+
+.hint-text {
+  font-size: 0.8rem;
+  color: #a5b4fc;
+  line-height: 1.4;
+}
+
+/* Points Legend */
+.points-legend {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 2rem;
+}
+
+.points-legend h3 {
+  font-size: 1.25rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+.legend-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.legend-badge.common {
+  background: rgba(107, 114, 128, 0.3);
+  color: #9ca3af;
+}
+
+.legend-badge.rare {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.legend-badge.epic {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+}
+
+.legend-badge.legendary {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(245, 158, 11, 0.2));
+  color: #fbbf24;
+}
+
+.legend-points {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Rarity-specific card styles */
+.badge-card.rarity-legendary.earned {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  animation: legendaryGlow 3s ease-in-out infinite;
+}
+
+@keyframes legendaryGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.4);
+  }
+}
+
+.badge-card.rarity-epic.earned {
+  background: linear-gradient(145deg, rgba(168, 85, 247, 0.05), #0f172a);
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 1.25rem;
+  color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .badge-catalogue-page .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge-catalogue-page .header-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .aha-jugamos-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-points {
+    width: 100%;
+  }
+
+  .category-header {
+    flex-wrap: wrap;
+  }
+
+  .badges-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .legend-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

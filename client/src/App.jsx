@@ -6,6 +6,7 @@ import Leaderboard from './pages/Leaderboard'
 import Challenges from './pages/Challenges'
 import Profile from './pages/Profile'
 import SprintGame from './pages/SprintGame'
+import BadgeCatalogue from './pages/BadgeCatalogue'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/achievements" element={<Achievements />} />
+        <Route path="/badges" element={<BadgeCatalogue />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/sprint-game" element={<SprintGame />} />
