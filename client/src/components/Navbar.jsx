@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaTrophy, FaMedal, FaFire, FaUser, FaGamepad, FaAward } from 'react-icons/fa'
+import { FaTrophy, FaMedal, FaFire, FaUser, FaGamepad, FaAward, FaHeart } from 'react-icons/fa'
 import './Navbar.css'
 
 function Navbar() {
@@ -20,6 +20,9 @@ function Navbar() {
           </Link>
           <Link to="/badges" className="nav-link badges-link">
             <FaAward /> Badges
+          </Link>
+          <Link to="/team-health" className="nav-link health-link">
+            <FaHeart /> Team Health
           </Link>
           <Link to="/achievements" className="nav-link">
             <FaTrophy /> Achievements

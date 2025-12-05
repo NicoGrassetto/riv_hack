@@ -1,0 +1,325 @@
+.mental-health-checkin {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem 1rem;
+}
+
+.mental-health-checkin .container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.checkin-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.heart-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.checkin-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.checkin-header p {
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.checkin-form {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section label {
+  display: block;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Team Grid */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.team-btn {
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+
+.team-btn:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.team-btn.selected {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: transparent;
+}
+
+/* Mood Grid */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border: 3px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mood-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mood-btn.selected {
+  background: linear-gradient(135deg, var(--mood-color), var(--mood-color));
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mood-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.mood-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Scale Grid */
+.scale-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.scale-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #374151;
+}
+
+.scale-btn:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.scale-btn.selected {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: white;
+  border-color: transparent;
+}
+
+.scale-grid.reverse .scale-btn.selected {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+}
+
+.scale-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Textarea */
+.form-section textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s;
+}
+
+.form-section textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.char-count {
+  display: block;
+  text-align: right;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.privacy-note {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+/* Success Card */
+.success-card {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.success-card h1 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.success-card p {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.support-message {
+  background: #FEF3C7;
+  padding: 1rem;
+  border-radius: 10px;
+  color: #92400E;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .mood-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .mood-btn {
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .mood-icon {
+    font-size: 1.5rem;
+  }
+  
+  .mood-label {
+    font-size: 0.6rem;
+  }
+  
+  .scale-btn {
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .scale-label {
+    font-size: 0.55rem;
+  }
+  
+  .checkin-form {
+    padding: 1.5rem;
+  }
+}

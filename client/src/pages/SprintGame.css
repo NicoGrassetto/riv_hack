@@ -1082,3 +1082,457 @@
     font-size: 0.8rem;
   }
 }
+
+/* ============================================
+   WELLNESS TAB STYLES
+   ============================================ */
+
+.wellness-section {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.wellness-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #10B981, #34D399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.wellness-section .section-subtitle {
+  color: #9CA3AF;
+  margin-bottom: 2rem;
+}
+
+/* QR Code Banner */
+.qr-code-banner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.05));
+  border-radius: 16px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  margin-bottom: 2rem;
+}
+
+.qr-code-display {
+  flex-shrink: 0;
+}
+
+.fake-qr {
+  width: 120px;
+  height: 120px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.qr-pattern {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100%;
+}
+
+.qr-row {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+
+.qr-cell {
+  flex: 1;
+  background: #e5e7eb;
+  border-radius: 1px;
+}
+
+.qr-cell.filled {
+  background: #1f2937;
+}
+
+.qr-info h3 {
+  color: #10B981;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.qr-info p {
+  color: #9CA3AF;
+  margin-bottom: 1rem;
+}
+
+.qr-link-btn {
+  display: inline-block;
+  color: #34D399;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.qr-link-btn:hover {
+  color: #10B981;
+}
+
+/* Wellness Summary Cards */
+.wellness-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.wellness-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wellness-card.overall {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.1));
+  border-color: #10B981;
+}
+
+.wellness-icon {
+  font-size: 1.75rem;
+}
+
+.wellness-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.wellness-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.wellness-value.trend-up {
+  color: #10B981;
+}
+
+.wellness-label {
+  font-size: 0.85rem;
+  color: #9CA3AF;
+}
+
+.wellness-scale {
+  color: #6B7280;
+  font-size: 0.9rem;
+}
+
+/* Wellness Teams Grid */
+.wellness-grid {
+  margin-bottom: 2rem;
+}
+
+.wellness-grid h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.wellness-teams-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.wellness-team-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border-left: 4px solid;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.wellness-team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.wellness-team-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.wellness-team-header .team-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+}
+
+.wellness-team-header .team-info {
+  flex: 1;
+}
+
+.wellness-team-header .team-name {
+  display: block;
+  font-weight: 600;
+  color: white;
+}
+
+.wellness-team-header .team-responses {
+  font-size: 0.8rem;
+  color: #6B7280;
+}
+
+.trend-indicator {
+  font-size: 1.25rem;
+}
+
+.wellness-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 35px;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-name {
+  font-size: 0.8rem;
+  color: #9CA3AF;
+}
+
+.metric-bar-container {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.metric-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
+.metric-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  text-align: right;
+}
+
+.wellness-overall {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.overall-label {
+  color: #6B7280;
+  font-size: 0.9rem;
+}
+
+.overall-score {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Wellness Trends Chart */
+.wellness-trends {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.wellness-trends h3 {
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.trend-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 200px;
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+.trend-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.trend-bars {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 150px;
+  margin-bottom: 0.5rem;
+}
+
+.trend-bar {
+  width: 20px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s ease-out;
+}
+
+.trend-bar.mood {
+  background: linear-gradient(180deg, #10B981, #059669);
+}
+
+.trend-bar.morale {
+  background: linear-gradient(180deg, #3B82F6, #2563EB);
+}
+
+.trend-bar.collab {
+  background: linear-gradient(180deg, #A78BFA, #8B5CF6);
+}
+
+.trend-label {
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.trend-responses {
+  font-size: 0.75rem;
+  color: #6B7280;
+}
+
+.trend-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #9CA3AF;
+  font-size: 0.85rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-color.mood {
+  background: #10B981;
+}
+
+.legend-color.morale {
+  background: #3B82F6;
+}
+
+.legend-color.collab {
+  background: #A78BFA;
+}
+
+/* Wellness Tips Panel */
+.wellness-tips-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.wellness-tips-panel h3 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.tip-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border-left: 3px solid;
+}
+
+.tip-card.positive {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: #10B981;
+}
+
+.tip-card.attention {
+  background: rgba(249, 115, 22, 0.1);
+  border-color: #F97316;
+}
+
+.tip-card.trending {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #3B82F6;
+}
+
+.tip-card.insight {
+  background: rgba(167, 139, 250, 0.1);
+  border-color: #A78BFA;
+}
+
+.tip-icon {
+  font-size: 1.5rem;
+}
+
+.tip-content h4 {
+  color: white;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.tip-content p {
+  color: #9CA3AF;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Responsive Wellness */
+@media (max-width: 768px) {
+  .qr-code-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .wellness-teams-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .trend-chart {
+    gap: 0.5rem;
+  }
+  
+  .trend-bar {
+    width: 14px;
+  }
+  
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+}

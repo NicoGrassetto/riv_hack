@@ -7,6 +7,7 @@ import Challenges from './pages/Challenges'
 import Profile from './pages/Profile'
 import SprintGame from './pages/SprintGame'
 import BadgeCatalogue from './pages/BadgeCatalogue'
+import TeamHealthCheckin from './pages/TeamHealthCheckin'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/sprint-game" element={<SprintGame />} />
+        <Route path="/team-health" element={<TeamHealthCheckin />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>

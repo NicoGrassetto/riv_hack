@@ -174,28 +174,138 @@ const allBadges = [
     points: 15,
     awardCondition: 'Achieve highest average A/B in-tact across all teams'
   },
-  // TEAM BADGES
+  // TEAM BADGES - Celebrating team identity and belonging
   {
     _id: '16',
-    name: 'Blue Team Champion',
-    description: 'Member of the Blue Team with outstanding performance',
+    name: 'Team Blue',
+    description: 'Proud member of the Blue Team - bringing unique perspectives to our journey',
     icon: '💙',
     color: '#3B82F6',
     rarity: 'common',
     category: 'team',
     points: 0,
-    awardCondition: 'Assigned to Blue Team'
+    awardCondition: 'Member of Blue Team'
   },
   {
     _id: '17',
-    name: 'Green Machine',
-    description: 'Member of the Green Team driving feature completion',
+    name: 'Team Green',
+    description: 'Proud member of the Green Team - contributing to our shared success',
     icon: '💚',
     color: '#10B981',
     rarity: 'common',
     category: 'team',
     points: 0,
-    awardCondition: 'Assigned to Green Team'
+    awardCondition: 'Member of Green Team'
+  },
+  {
+    _id: '39',
+    name: 'Team Orange',
+    description: 'Proud member of the Orange Team - adding creativity and energy to every sprint',
+    icon: '🧡',
+    color: '#F97316',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Orange Team'
+  },
+  {
+    _id: '40',
+    name: 'Team Lavender',
+    description: 'Proud member of the Lavender Team - crafting beautiful experiences together',
+    icon: '💜',
+    color: '#A855F7',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Lavender Team'
+  },
+  {
+    _id: '41',
+    name: 'Team Yellow',
+    description: 'Proud member of the Yellow Team - bringing data insights to light',
+    icon: '💛',
+    color: '#EAB308',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Yellow Team'
+  },
+  {
+    _id: '42',
+    name: 'Team Turquoise',
+    description: 'Proud member of the Turquoise Team - building cloud foundations together',
+    icon: '🩵',
+    color: '#14B8A6',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Turquoise Team'
+  },
+  {
+    _id: '43',
+    name: 'Team Amber',
+    description: 'Proud member of the Amber Team - keeping our systems secure and strong',
+    icon: '🔶',
+    color: '#D97706',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Amber Team'
+  },
+  {
+    _id: '44',
+    name: 'Team Azure',
+    description: 'Proud member of the Azure Team - connecting services with care',
+    icon: '💠',
+    color: '#0EA5E9',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Azure Team'
+  },
+  {
+    _id: '45',
+    name: 'Team Emerald',
+    description: 'Proud member of the Emerald Team - pioneering innovation with ML',
+    icon: '💎',
+    color: '#059669',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Emerald Team'
+  },
+  {
+    _id: '46',
+    name: 'Team Silver',
+    description: 'Proud member of the Silver Team - bridging legacy and future',
+    icon: '🪙',
+    color: '#94A3B8',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Silver Team'
+  },
+  {
+    _id: '47',
+    name: 'Team Gold',
+    description: 'Proud member of the Gold Team - delivering premium value',
+    icon: '🥇',
+    color: '#F59E0B',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Gold Team'
+  },
+  {
+    _id: '48',
+    name: 'Team Maroon',
+    description: 'Proud member of the Maroon Team - empowering administration',
+    icon: '🟤',
+    color: '#991B1B',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Member of Maroon Team'
   },
   {
     _id: '18',
@@ -478,8 +588,8 @@ function BadgeCatalogue() {
     },
     team: {
       icon: <FaShieldAlt />,
-      title: 'Team Badges',
-      description: 'Badges representing team membership and identity',
+      title: '🤗 Team Identity',
+      description: 'Celebrating our diverse teams - every team brings unique value to our community',
       gradient: 'linear-gradient(135deg, #3B82F6, #2563EB)'
     },
     milestone: {

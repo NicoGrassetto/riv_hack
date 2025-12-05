@@ -126,6 +126,15 @@ router.post('/points', authMiddleware, async (req, res) => {
 // Get leaderboard
 router.get('/leaderboard/top', async (req, res) => {
   try {
+    // Check if database is connected
+    const { isDBConnected } = require('../config/database');
+    if (!isDBConnected()) {
+      return res.json({ 
+        leaderboard: [],
+        message: 'Database not connected - leaderboard unavailable'
+      });
+    }
+
     const limit = Math.min(parseInt(req.query.limit) || 10, 100); // Max 100 users
     const timeframe = req.query.timeframe || 'all'; // all, weekly, monthly
 

@@ -82,6 +82,16 @@
   transform: scale(1.05);
 }
 
+.health-link {
+  background: linear-gradient(135deg, #EC4899, #DB2777);
+  border-radius: 20px;
+}
+
+.health-link:hover {
+  background: linear-gradient(135deg, #DB2777, #BE185D);
+  transform: scale(1.05);
+}
+
 @keyframes pulse {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);

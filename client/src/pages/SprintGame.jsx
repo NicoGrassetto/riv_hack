@@ -150,6 +150,81 @@ const FAKE_ANALYTICS = {
       { team: 'Green', qualityScore: 5, badge: '⚡' }
     ]
   },
+  // Team Wellness Data - fake data for demo
+  teamWellness: {
+    lastUpdated: '2024-12-05T10:30:00Z',
+    totalResponses: 156,
+    overallHealth: 3.8,
+    teams: {
+      'Green': { 
+        mood: 4.2, teamMorale: 4.5, collaboration: 4.3, communication: 4.1, 
+        workLifeBalance: 3.8, psychologicalSafety: 4.4, sprintConfidence: 4.6, blockerStress: 4.2,
+        responses: 18, trend: 'up'
+      },
+      'Azure': { 
+        mood: 4.0, teamMorale: 4.2, collaboration: 4.1, communication: 4.3, 
+        workLifeBalance: 3.9, psychologicalSafety: 4.2, sprintConfidence: 4.4, blockerStress: 4.0,
+        responses: 15, trend: 'up'
+      },
+      'Lavender': { 
+        mood: 4.1, teamMorale: 4.0, collaboration: 4.4, communication: 3.9, 
+        workLifeBalance: 4.0, psychologicalSafety: 4.3, sprintConfidence: 4.1, blockerStress: 3.8,
+        responses: 14, trend: 'stable'
+      },
+      'Blue': { 
+        mood: 3.8, teamMorale: 3.9, collaboration: 4.0, communication: 3.8, 
+        workLifeBalance: 3.5, psychologicalSafety: 4.0, sprintConfidence: 4.2, blockerStress: 3.5,
+        responses: 16, trend: 'up'
+      },
+      'Gold': { 
+        mood: 3.9, teamMorale: 4.1, collaboration: 3.8, communication: 4.0, 
+        workLifeBalance: 3.7, psychologicalSafety: 4.1, sprintConfidence: 4.0, blockerStress: 3.9,
+        responses: 12, trend: 'stable'
+      },
+      'Orange': { 
+        mood: 3.6, teamMorale: 3.5, collaboration: 3.7, communication: 3.6, 
+        workLifeBalance: 3.2, psychologicalSafety: 3.8, sprintConfidence: 3.4, blockerStress: 3.0,
+        responses: 14, trend: 'down'
+      },
+      'Emerald': { 
+        mood: 3.5, teamMorale: 3.6, collaboration: 3.5, communication: 3.4, 
+        workLifeBalance: 3.3, psychologicalSafety: 3.7, sprintConfidence: 3.2, blockerStress: 2.8,
+        responses: 10, trend: 'stable'
+      },
+      'Amber': { 
+        mood: 3.4, teamMorale: 3.3, collaboration: 3.6, communication: 3.5, 
+        workLifeBalance: 3.1, psychologicalSafety: 3.5, sprintConfidence: 3.3, blockerStress: 2.9,
+        responses: 12, trend: 'down'
+      },
+      'Maroon': { 
+        mood: 3.3, teamMorale: 3.4, collaboration: 3.2, communication: 3.3, 
+        workLifeBalance: 3.0, psychologicalSafety: 3.4, sprintConfidence: 3.1, blockerStress: 2.7,
+        responses: 11, trend: 'stable'
+      },
+      'Yellow': { 
+        mood: 3.2, teamMorale: 3.1, collaboration: 3.3, communication: 3.2, 
+        workLifeBalance: 2.8, psychologicalSafety: 3.3, sprintConfidence: 2.9, blockerStress: 2.5,
+        responses: 13, trend: 'down'
+      },
+      'Silver': { 
+        mood: 2.8, teamMorale: 2.7, collaboration: 2.9, communication: 2.8, 
+        workLifeBalance: 2.5, psychologicalSafety: 3.0, sprintConfidence: 2.4, blockerStress: 2.0,
+        responses: 9, trend: 'down'
+      },
+      'Turquoise': { 
+        mood: 2.6, teamMorale: 2.5, collaboration: 2.7, communication: 2.6, 
+        workLifeBalance: 2.3, psychologicalSafety: 2.8, sprintConfidence: 2.2, blockerStress: 1.8,
+        responses: 12, trend: 'down'
+      }
+    },
+    sprintTrends: {
+      S1: { mood: 3.2, morale: 3.0, collaboration: 3.1, responses: 89 },
+      S2: { mood: 3.4, morale: 3.3, collaboration: 3.4, responses: 112 },
+      S3: { mood: 3.6, morale: 3.5, collaboration: 3.6, responses: 134 },
+      S4: { mood: 3.7, morale: 3.6, collaboration: 3.8, responses: 148 },
+      S5: { mood: 3.8, morale: 3.7, collaboration: 3.9, responses: 156 }
+    }
+  },
   sprintProgress: {
     S1: { date: '14-Oct', total: 1850, count: 76, average: 24 },
     S2: { date: '28-Oct', total: 3420, count: 76, average: 45 },
@@ -370,7 +445,7 @@ function SprintGame() {
   const isMounted = useRef(true)
   const containerRef = useRef(null)
 
-  const tabs = ['leaderboard', 'badges', 'kpis', 'sprints', 'teams', 'burndown']
+  const tabs = ['leaderboard', 'badges', 'wellness', 'kpis', 'sprints', 'teams', 'burndown']
 
   const fetchAnalytics = async () => {
     try {
@@ -454,6 +529,15 @@ function SprintGame() {
       'Maroon': '#991B1B'
     }
     return colors[teamName] || '#6B7280'
+  }
+
+  // Get health color based on score (1-5 scale)
+  const getHealthColor = (score) => {
+    if (score >= 4.0) return '#10B981' // Green - Excellent
+    if (score >= 3.5) return '#22C55E' // Light green - Good
+    if (score >= 3.0) return '#EAB308' // Yellow - Okay
+    if (score >= 2.5) return '#F97316' // Orange - Needs attention
+    return '#EF4444' // Red - Critical
   }
 
   // Get encouraging icon based on team's journey - no rankings!
@@ -581,6 +665,12 @@ function SprintGame() {
           onClick={() => setActiveTab('badges')}
         >
           🎖️ Badges
+        </button>
+        <button 
+          className={activeTab === 'wellness' ? 'active' : ''} 
+          onClick={() => setActiveTab('wellness')}
+        >
+          💚 Team Wellness
         </button>
         <button 
           className={activeTab === 'kpis' ? 'active' : ''} 
@@ -801,6 +891,242 @@ function SprintGame() {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* WELLNESS TAB */}
+        {activeTab === 'wellness' && (
+          <section className="wellness-section">
+            <h2>💚 Team Wellness Dashboard</h2>
+            <p className="section-subtitle">Anonymous team health check-ins help us support each other better</p>
+            
+            {/* QR Code Banner */}
+            <div className="qr-code-banner">
+              <div className="qr-code-display">
+                <div className="fake-qr">
+                  <div className="qr-pattern">
+                    {[...Array(7)].map((_, row) => (
+                      <div key={row} className="qr-row">
+                        {[...Array(7)].map((_, col) => (
+                          <div 
+                            key={col} 
+                            className={`qr-cell ${(row + col) % 3 === 0 || (row === 0 || row === 6 || col === 0 || col === 6) ? 'filled' : ''}`}
+                          />
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="qr-info">
+                <h3>📱 Scan to Check In</h3>
+                <p>Team members can scan this QR code to anonymously share how they're feeling</p>
+                <a href="/team-health" className="qr-link-btn" target="_blank">
+                  Or click here to open the check-in form →
+                </a>
+              </div>
+            </div>
+
+            {/* Wellness Summary Cards */}
+            <div className="wellness-summary-cards">
+              <div className="wellness-card overall">
+                <span className="wellness-icon">💚</span>
+                <div className="wellness-stat">
+                  <span className="wellness-value">{analytics?.teamWellness?.overallHealth?.toFixed(1) || '3.8'}</span>
+                  <span className="wellness-label">Overall Health</span>
+                </div>
+                <span className="wellness-scale">/5.0</span>
+              </div>
+              <div className="wellness-card">
+                <span className="wellness-icon">📝</span>
+                <div className="wellness-stat">
+                  <span className="wellness-value">{analytics?.teamWellness?.totalResponses || 156}</span>
+                  <span className="wellness-label">Total Responses</span>
+                </div>
+              </div>
+              <div className="wellness-card">
+                <span className="wellness-icon">👥</span>
+                <div className="wellness-stat">
+                  <span className="wellness-value">12</span>
+                  <span className="wellness-label">Teams Reporting</span>
+                </div>
+              </div>
+              <div className="wellness-card">
+                <span className="wellness-icon">📈</span>
+                <div className="wellness-stat">
+                  <span className="wellness-value trend-up">+0.6</span>
+                  <span className="wellness-label">vs Last Sprint</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Wellness Grid */}
+            <div className="wellness-grid">
+              <h3>Team Health Overview</h3>
+              <div className="wellness-teams-list">
+                {analytics?.teamWellness?.teams && Object.entries(analytics.teamWellness.teams)
+                  .sort((a, b) => ((b[1].mood + b[1].teamMorale) / 2) - ((a[1].mood + a[1].teamMorale) / 2))
+                  .map(([teamName, data]) => {
+                    const avgScore = ((data.mood + data.teamMorale + data.collaboration + data.communication) / 4).toFixed(1)
+                    return (
+                      <div 
+                        key={teamName} 
+                        className="wellness-team-card"
+                        style={{ borderLeftColor: getTeamColor(teamName) }}
+                      >
+                        <div className="wellness-team-header">
+                          <div 
+                            className="team-badge"
+                            style={{ backgroundColor: getTeamColor(teamName) }}
+                          >
+                            {teamName.charAt(0)}
+                          </div>
+                          <div className="team-info">
+                            <span className="team-name">{teamName} Team</span>
+                            <span className="team-responses">{data.responses} responses</span>
+                          </div>
+                          <div className={`trend-indicator ${data.trend}`}>
+                            {data.trend === 'up' ? '📈' : data.trend === 'down' ? '📉' : '➡️'}
+                          </div>
+                        </div>
+                        <div className="wellness-metrics">
+                          <div className="metric-row">
+                            <span className="metric-name">😊 Mood</span>
+                            <div className="metric-bar-container">
+                              <div 
+                                className="metric-bar" 
+                                style={{ 
+                                  width: `${(data.mood / 5) * 100}%`,
+                                  backgroundColor: getHealthColor(data.mood)
+                                }}
+                              />
+                            </div>
+                            <span className="metric-value">{data.mood.toFixed(1)}</span>
+                          </div>
+                          <div className="metric-row">
+                            <span className="metric-name">🤝 Team</span>
+                            <div className="metric-bar-container">
+                              <div 
+                                className="metric-bar" 
+                                style={{ 
+                                  width: `${(data.teamMorale / 5) * 100}%`,
+                                  backgroundColor: getHealthColor(data.teamMorale)
+                                }}
+                              />
+                            </div>
+                            <span className="metric-value">{data.teamMorale.toFixed(1)}</span>
+                          </div>
+                          <div className="metric-row">
+                            <span className="metric-name">💬 Collab</span>
+                            <div className="metric-bar-container">
+                              <div 
+                                className="metric-bar" 
+                                style={{ 
+                                  width: `${(data.collaboration / 5) * 100}%`,
+                                  backgroundColor: getHealthColor(data.collaboration)
+                                }}
+                              />
+                            </div>
+                            <span className="metric-value">{data.collaboration.toFixed(1)}</span>
+                          </div>
+                          <div className="metric-row">
+                            <span className="metric-name">⚖️ Balance</span>
+                            <div className="metric-bar-container">
+                              <div 
+                                className="metric-bar" 
+                                style={{ 
+                                  width: `${(data.workLifeBalance / 5) * 100}%`,
+                                  backgroundColor: getHealthColor(data.workLifeBalance)
+                                }}
+                              />
+                            </div>
+                            <span className="metric-value">{data.workLifeBalance.toFixed(1)}</span>
+                          </div>
+                        </div>
+                        <div className="wellness-overall">
+                          <span className="overall-label">Overall:</span>
+                          <span 
+                            className="overall-score"
+                            style={{ color: getHealthColor(parseFloat(avgScore)) }}
+                          >
+                            {avgScore}
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  })}
+              </div>
+            </div>
+
+            {/* Sprint Wellness Trend */}
+            <div className="wellness-trends">
+              <h3>📈 Wellness Trends Over Sprints</h3>
+              <div className="trend-chart">
+                {analytics?.teamWellness?.sprintTrends && Object.entries(analytics.teamWellness.sprintTrends).map(([sprint, data]) => (
+                  <div key={sprint} className="trend-column">
+                    <div className="trend-bars">
+                      <div 
+                        className="trend-bar mood"
+                        style={{ height: `${(data.mood / 5) * 100}%` }}
+                        title={`Mood: ${data.mood}`}
+                      />
+                      <div 
+                        className="trend-bar morale"
+                        style={{ height: `${(data.morale / 5) * 100}%` }}
+                        title={`Morale: ${data.morale}`}
+                      />
+                      <div 
+                        className="trend-bar collab"
+                        style={{ height: `${(data.collaboration / 5) * 100}%` }}
+                        title={`Collaboration: ${data.collaboration}`}
+                      />
+                    </div>
+                    <span className="trend-label">{sprint}</span>
+                    <span className="trend-responses">{data.responses} 📝</span>
+                  </div>
+                ))}
+              </div>
+              <div className="trend-legend">
+                <span className="legend-item"><span className="legend-color mood"></span> Mood</span>
+                <span className="legend-item"><span className="legend-color morale"></span> Morale</span>
+                <span className="legend-item"><span className="legend-color collab"></span> Collaboration</span>
+              </div>
+            </div>
+
+            {/* Wellness Tips */}
+            <div className="wellness-tips-panel">
+              <h3>💡 Team Wellness Insights</h3>
+              <div className="tips-grid">
+                <div className="tip-card positive">
+                  <span className="tip-icon">🌟</span>
+                  <div className="tip-content">
+                    <h4>Top Performing: Green Team</h4>
+                    <p>Highest overall wellness score (4.3) with strong psychological safety</p>
+                  </div>
+                </div>
+                <div className="tip-card attention">
+                  <span className="tip-icon">⚠️</span>
+                  <div className="tip-content">
+                    <h4>Needs Support: Turquoise Team</h4>
+                    <p>Lower blocker stress scores - may need help clearing impediments</p>
+                  </div>
+                </div>
+                <div className="tip-card trending">
+                  <span className="tip-icon">📈</span>
+                  <div className="tip-content">
+                    <h4>Trending Up: Blue Team</h4>
+                    <p>Significant improvement in mood and confidence this sprint</p>
+                  </div>
+                </div>
+                <div className="tip-card insight">
+                  <span className="tip-icon">💡</span>
+                  <div className="tip-content">
+                    <h4>Organization-Wide</h4>
+                    <p>Work-life balance is the lowest metric - consider workload review</p>
+                  </div>
                 </div>
               </div>
             </div>
