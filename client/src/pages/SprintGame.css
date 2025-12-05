@@ -708,6 +708,18 @@
   margin-bottom: 1.5rem;
 }
 
+.scoring-info.inclusive-scoring {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.section-subtitle {
+  color: #9CA3AF;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
 .scoring-info h4 {
   margin-bottom: 0.75rem;
   color: #9CA3AF;
@@ -733,10 +745,38 @@
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
+.score-badge.neutral {
+  background: rgba(99, 102, 241, 0.2);
+  color: #A5B4FC;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
 .score-badge.negative {
   background: rgba(239, 68, 68, 0.2);
   color: #EF4444;
   border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Inclusive Leaderboard Item */
+.leaderboard-item.inclusive-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard-item.inclusive-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.team-icon {
+  font-size: 1.75rem;
+  min-width: 45px;
+  text-align: center;
+}
+
+.team-strength {
+  color: #10B981;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 2px;
 }
 
 /* Team KPIs in Leaderboard */

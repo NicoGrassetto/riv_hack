@@ -456,11 +456,40 @@ function SprintGame() {
     return colors[teamName] || '#6B7280'
   }
 
-  const getRankEmoji = (rank) => {
-    if (rank === 1) return '🥇'
-    if (rank === 2) return '🥈'
-    if (rank === 3) return '🥉'
-    return `#${rank}`
+  // Get encouraging icon based on team's journey - no rankings!
+  const getTeamIcon = (team, index) => {
+    // Everyone gets recognition based on their strengths
+    const momentum = team.kpis?.momentum || 0
+    const completion = team.kpis?.completion || 0
+    
+    // High momentum = growing fast
+    if (momentum >= 50) return '🚀'
+    if (momentum >= 30) return '📈'
+    if (momentum >= 15) return '⬆️'
+    
+    // High completion = delivering well
+    if (completion >= 95) return '⭐'
+    if (completion >= 80) return '✨'
+    if (completion >= 60) return '💪'
+    
+    // Still contributing
+    return '🌱'
+  }
+
+  // Get team strength description
+  const getTeamStrength = (team) => {
+    const momentum = team.kpis?.momentum || 0
+    const completion = team.kpis?.completion || 0
+    const predictability = team.kpis?.predictability || 0
+    
+    if (momentum >= 50) return 'Growing Fast'
+    if (completion >= 95) return 'High Delivery'
+    if (predictability >= 90) return 'Very Reliable'
+    if (momentum >= 20) return 'Good Momentum'
+    if (completion >= 80) return 'Solid Progress'
+    if (predictability >= 50) return 'Steady Flow'
+    if (momentum > 0) return 'Building Up'
+    return 'Laying Foundation'
   }
 
   if (loading) {
@@ -583,28 +612,29 @@ function SprintGame() {
         {/* LEADERBOARD TAB */}
         {activeTab === 'leaderboard' && (
           <section className="leaderboard-section">
-            <h2>🏆 Team Leaderboard</h2>
-            <div className="scoring-info">
-              <h4>Scoring Rubric:</h4>
+            <h2>🤝 Team Contributions</h2>
+            <p className="section-subtitle">Every team brings unique value to our shared goals</p>
+            <div className="scoring-info inclusive-scoring">
+              <h4>How Teams Grow:</h4>
               <div className="scoring-badges">
-                <span className="score-badge positive">+10 Completed (≥95%)</span>
-                <span className="score-badge positive">+5 On-track (≥80%)</span>
-                <span className="score-badge positive">+3 Momentum (≥+20)</span>
-                <span className="score-badge negative">−2 No progress (≤0)</span>
+                <span className="score-badge positive">⭐ Delivery Excellence</span>
+                <span className="score-badge positive">📈 Growth & Momentum</span>
+                <span className="score-badge positive">🎯 Predictable Flow</span>
+                <span className="score-badge neutral">🌱 Building Foundation</span>
               </div>
             </div>
             <div className="leaderboard-list">
               {analytics?.leaderboard?.map((team, index) => (
                 <div 
                   key={team.name} 
-                  className={`leaderboard-item rank-${index + 1}`}
+                  className="leaderboard-item inclusive-item"
                   style={{ borderLeftColor: getTeamColor(team.name) }}
                   onClick={() => {
                     setSelectedTeam(team.name)
                     setActiveTab('teams')
                   }}
                 >
-                  <div className="rank">{getRankEmoji(index + 1)}</div>
+                  <div className="team-icon">{getTeamIcon(team, index)}</div>
                   <div 
                     className="team-badge" 
                     style={{ backgroundColor: getTeamColor(team.name) }}
@@ -613,8 +643,9 @@ function SprintGame() {
                   </div>
                   <div className="team-info">
                     <span className="team-name">{team.name} Team</span>
+                    <span className="team-strength">{getTeamStrength(team)}</span>
                     <span className="team-stats">
-                      {team.featuresCompleted}/{team.totalFeatures} features completed
+                      {team.featuresCompleted}/{team.totalFeatures} features contributed
                     </span>
                   </div>
                   <div className="team-kpis">

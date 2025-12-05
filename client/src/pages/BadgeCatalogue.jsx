@@ -1,26 +1,448 @@
-import { useQuery } from '@tanstack/react-query'
-import { badgesAPI } from '../api/api'
-import { FaMedal, FaStar, FaGamepad, FaRocket, FaUsers, FaChartLine, FaTrophy, FaShieldAlt, FaLightbulb } from 'react-icons/fa'
+import { useState } from 'react'
+import { FaMedal, FaStar, FaGamepad, FaRocket, FaUsers, FaChartLine, FaTrophy, FaShieldAlt, FaLightbulb, FaSeedling } from 'react-icons/fa'
 import './BadgeCatalogue.css'
 
-function BadgeCatalogue() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['all-badges'],
-    queryFn: () => badgesAPI.getAll(),
-  })
-
-  const { data: myBadgesData } = useQuery({
-    queryKey: ['my-badges'],
-    queryFn: () => badgesAPI.getMyBadges(),
-  })
-
-  const badges = data?.data?.badges || []
-  const myBadges = myBadgesData?.data?.badges || []
-  const earnedBadgeIds = myBadges.map(b => b.badge?._id || b.badgeId)
-
-  if (isLoading) {
-    return <div className="loading">Loading badge catalogue...</div>
+// Hardcoded badges data (works without database)
+const allBadges = [
+  // IMPROVEMENT BADGES
+  {
+    _id: '1',
+    name: 'Goal Getter',
+    description: 'Self-defined improvement goal met - team sets a micro-goal and pipeline checks it',
+    icon: '🎯',
+    color: '#10B981',
+    rarity: 'rare',
+    category: 'improvement',
+    points: 5,
+    awardCondition: 'Team sets a micro-goal and achieves it (verified by pipeline)'
+  },
+  {
+    _id: '2',
+    name: 'Flow Optimizer',
+    description: 'Experiment or flip that improves flow by removing a dependency or reducing lead time',
+    icon: '⚡',
+    color: '#6366F1',
+    rarity: 'epic',
+    category: 'improvement',
+    points: 5,
+    awardCondition: 'Implement an experiment/flip that removes dependency or reduces lead time'
+  },
+  {
+    _id: '3',
+    name: 'Retro Rockstar',
+    description: 'Best retrospective with 20+ point improvements identified and actioned',
+    icon: '🌟',
+    color: '#EC4899',
+    rarity: 'legendary',
+    category: 'improvement',
+    points: 10,
+    awardCondition: 'Retrospective generates 20+ improvement points'
+  },
+  {
+    _id: '4',
+    name: 'Score Surge',
+    description: 'Gross team score improvement - 10 point improvement in the assessed item',
+    icon: '📈',
+    color: '#22C55E',
+    rarity: 'rare',
+    category: 'improvement',
+    points: 5,
+    awardCondition: 'Team achieves 10 point improvement in assessed item'
+  },
+  {
+    _id: '5',
+    name: 'Fast Factor',
+    description: 'Quick wins achieved - one per turn per sprint flip',
+    icon: '🤗',
+    color: '#14B8A6',
+    rarity: 'common',
+    category: 'improvement',
+    points: 2,
+    awardCondition: 'Achieve a fast factor (one per turn per sprint flip)'
+  },
+  // COLLABORATION BADGES
+  {
+    _id: '6',
+    name: 'Critical Contributor',
+    description: 'Critical initiative & Collaboration topic in Top 3 for the team',
+    icon: '🔝',
+    color: '#F59E0B',
+    rarity: 'epic',
+    category: 'collaboration',
+    points: 5,
+    awardCondition: 'Team collaboration topic ranks in Top 3'
+  },
+  {
+    _id: '7',
+    name: 'Collective Champion',
+    description: 'Collective goal achieved - API task, challenge, or sub-goals completed together',
+    icon: '🤝',
+    color: '#8B5CF6',
+    rarity: 'epic',
+    category: 'collaboration',
+    points: 5,
+    awardCondition: 'Complete collective goal (API task, challenge, sub-goals) - bonus to all contributing teams'
+  },
+  {
+    _id: '8',
+    name: 'Team Player',
+    description: 'Contributed to features across multiple personas',
+    icon: '🤝',
+    color: '#06B6D4',
+    rarity: 'rare',
+    category: 'collaboration',
+    points: 5,
+    awardCondition: 'Contribute to features across multiple personas'
+  },
+  // PREDICTABILITY BADGES
+  {
+    _id: '9',
+    name: 'Predictability Pro',
+    description: 'Predictability in top 20% of all teams',
+    icon: '🔮',
+    color: '#A855F7',
+    rarity: 'legendary',
+    category: 'predictability',
+    points: 10,
+    awardCondition: 'Team predictability ranks in top 20%'
+  },
+  {
+    _id: '10',
+    name: 'Next Sprint Ready',
+    description: 'Converted next sprint successfully - supports stable state for predictive planning',
+    icon: '➡️',
+    color: '#06B6D4',
+    rarity: 'common',
+    category: 'predictability',
+    points: 2,
+    awardCondition: 'Successfully convert and prepare next sprint'
+  },
+  {
+    _id: '11',
+    name: 'Risk Ranger',
+    description: 'Act risk window maintained within 1-4 days scope',
+    icon: '🛡️',
+    color: '#F97316',
+    rarity: 'rare',
+    category: 'predictability',
+    points: 3,
+    awardCondition: 'Maintain risk window within 1-4 days scope'
+  },
+  // DELIVERY BADGES
+  {
+    _id: '12',
+    name: 'On-Time Titans',
+    description: 'Maximum items delivered by due date with highest publish count and touch',
+    icon: '⏰',
+    color: '#EF4444',
+    rarity: 'legendary',
+    category: 'delivery',
+    points: 10,
+    awardCondition: 'Max items delivered by due date (publish count + touch)'
+  },
+  {
+    _id: '13',
+    name: 'Sprint Flipper',
+    description: 'Delivered planned sprint flip(s) on time',
+    icon: '🔄',
+    color: '#0EA5E9',
+    rarity: 'rare',
+    category: 'delivery',
+    points: 5,
+    awardCondition: 'Deliver planned sprint flip(s) on schedule'
+  },
+  {
+    _id: '14',
+    name: 'Plan-Sprint Pros',
+    description: 'Highest percentage of items delivered on planned sprint',
+    icon: '📋',
+    color: '#10B981',
+    rarity: 'legendary',
+    category: 'delivery',
+    points: 10,
+    awardCondition: 'Highest % of items delivered on planned sprint'
+  },
+  // FLOW BADGES
+  {
+    _id: '15',
+    name: 'Momentum Masters',
+    description: 'Highest average A/B in-tact across teams - mastering the flow',
+    icon: '🏃',
+    color: '#8B5CF6',
+    rarity: 'legendary',
+    category: 'flow',
+    points: 15,
+    awardCondition: 'Achieve highest average A/B in-tact across all teams'
+  },
+  // TEAM BADGES
+  {
+    _id: '16',
+    name: 'Blue Team Champion',
+    description: 'Member of the Blue Team with outstanding performance',
+    icon: '💙',
+    color: '#3B82F6',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Assigned to Blue Team'
+  },
+  {
+    _id: '17',
+    name: 'Green Machine',
+    description: 'Member of the Green Team driving feature completion',
+    icon: '💚',
+    color: '#10B981',
+    rarity: 'common',
+    category: 'team',
+    points: 0,
+    awardCondition: 'Assigned to Green Team'
+  },
+  {
+    _id: '18',
+    name: 'Golden Achiever',
+    description: 'Member of a team with 100% feature completion',
+    icon: '🏆',
+    color: '#F59E0B',
+    rarity: 'legendary',
+    category: 'achievement',
+    points: 10,
+    awardCondition: 'Team achieves 100% feature completion'
+  },
+  // MILESTONE BADGES
+  {
+    _id: '19',
+    name: 'Sprint Starter',
+    description: 'Contributed to Sprint 1 progress',
+    icon: '🚀',
+    color: '#6366F1',
+    rarity: 'common',
+    category: 'milestone',
+    points: 2,
+    awardCondition: 'Contribute to Sprint 1'
+  },
+  {
+    _id: '20',
+    name: 'Sprint Warrior',
+    description: 'Maintained progress across 3 consecutive sprints',
+    icon: '⚔️',
+    color: '#8B5CF6',
+    rarity: 'rare',
+    category: 'milestone',
+    points: 5,
+    awardCondition: 'Maintain progress across 3 consecutive sprints'
+  },
+  {
+    _id: '21',
+    name: 'Sprint Master',
+    description: 'Achieved 80%+ completion in a single sprint',
+    icon: '👑',
+    color: '#A855F7',
+    rarity: 'epic',
+    category: 'milestone',
+    points: 8,
+    awardCondition: 'Achieve 80%+ completion in a single sprint'
+  },
+  // ACHIEVEMENT BADGES
+  {
+    _id: '22',
+    name: 'Feature Finisher',
+    description: 'Completed your first feature at 100%',
+    icon: '✅',
+    color: '#22C55E',
+    rarity: 'common',
+    category: 'achievement',
+    points: 3,
+    awardCondition: 'Complete first feature at 100%'
+  },
+  {
+    _id: '23',
+    name: 'Story Teller',
+    description: 'Completed 5 user stories',
+    icon: '📖',
+    color: '#14B8A6',
+    rarity: 'rare',
+    category: 'achievement',
+    points: 5,
+    awardCondition: 'Complete 5 user stories'
+  },
+  {
+    _id: '24',
+    name: 'Feature Factory',
+    description: 'Completed 10 features',
+    icon: '🏭',
+    color: '#0EA5E9',
+    rarity: 'epic',
+    category: 'achievement',
+    points: 8,
+    awardCondition: 'Complete 10 features'
+  },
+  {
+    _id: '25',
+    name: 'Priority Hero',
+    description: 'Completed a Priority 1 feature',
+    icon: '🎯',
+    color: '#EF4444',
+    rarity: 'rare',
+    category: 'achievement',
+    points: 5,
+    awardCondition: 'Complete a Priority 1 feature'
+  },
+  // SPECIAL BADGES
+  {
+    _id: '26',
+    name: 'Velocity Champion',
+    description: 'Improved team velocity by 20% sprint over sprint',
+    icon: '📈',
+    color: '#EC4899',
+    rarity: 'epic',
+    category: 'special',
+    points: 10,
+    awardCondition: 'Improve team velocity by 20% sprint over sprint'
+  },
+  {
+    _id: '27',
+    name: 'Delivery Legend',
+    description: 'Achieved 100% completion on 20+ features',
+    icon: '🌟',
+    color: '#EAB308',
+    rarity: 'legendary',
+    category: 'special',
+    points: 15,
+    awardCondition: 'Achieve 100% completion on 20+ features'
+  },
+  {
+    _id: '28',
+    name: 'Cross-Functional Star',
+    description: 'Worked on both Stories and Features',
+    icon: '⭐',
+    color: '#8B5CF6',
+    rarity: 'rare',
+    category: 'special',
+    points: 5,
+    awardCondition: 'Work on both Stories and Features'
+  },
+  // ============================================
+  // 🌱 GROWTH & INCLUSION BADGES
+  // Celebrating effort, progress, and different contribution styles
+  // ============================================
+  {
+    _id: '29',
+    name: 'Foundation Builder',
+    description: 'Laying the groundwork for future success - every journey starts somewhere',
+    icon: '🌱',
+    color: '#10B981',
+    rarity: 'common',
+    category: 'growth',
+    points: 3,
+    awardCondition: 'Start contributing to team goals'
+  },
+  {
+    _id: '30',
+    name: 'Steady Climber',
+    description: 'Consistent improvement over time - slow and steady wins the race',
+    icon: '🧗',
+    color: '#6366F1',
+    rarity: 'rare',
+    category: 'growth',
+    points: 5,
+    awardCondition: 'Show improvement across 3 consecutive sprints'
+  },
+  {
+    _id: '31',
+    name: 'Resilience Star',
+    description: 'Overcame blockers and kept pushing forward despite challenges',
+    icon: '💪',
+    color: '#F59E0B',
+    rarity: 'epic',
+    category: 'growth',
+    points: 8,
+    awardCondition: 'Successfully unblock and complete a previously blocked item'
+  },
+  {
+    _id: '32',
+    name: 'Helping Hand',
+    description: 'Supported other teams or teammates to achieve their goals',
+    icon: '🤲',
+    color: '#EC4899',
+    rarity: 'rare',
+    category: 'growth',
+    points: 5,
+    awardCondition: 'Contribute to another team\'s success'
+  },
+  {
+    _id: '33',
+    name: 'Knowledge Sharer',
+    description: 'Documented processes, shared learnings, or mentored others',
+    icon: '📚',
+    color: '#8B5CF6',
+    rarity: 'rare',
+    category: 'growth',
+    points: 5,
+    awardCondition: 'Share knowledge through documentation or mentoring'
+  },
+  {
+    _id: '34',
+    name: 'Quality Guardian',
+    description: 'Focused on quality over speed - better to do it right',
+    icon: '🛡️',
+    color: '#0EA5E9',
+    rarity: 'rare',
+    category: 'growth',
+    points: 5,
+    awardCondition: 'Pass QA on first submission'
+  },
+  {
+    _id: '35',
+    name: 'Problem Solver',
+    description: 'Identified and resolved complex technical or process issues',
+    icon: '🔧',
+    color: '#14B8A6',
+    rarity: 'epic',
+    category: 'growth',
+    points: 8,
+    awardCondition: 'Resolve a complex blocker affecting the team'
+  },
+  {
+    _id: '36',
+    name: 'Fresh Perspective',
+    description: 'Brought new ideas or approaches that improved team processes',
+    icon: '💡',
+    color: '#F97316',
+    rarity: 'rare',
+    category: 'growth',
+    points: 5,
+    awardCondition: 'Suggest an improvement that gets implemented'
+  },
+  {
+    _id: '37',
+    name: 'Comeback Kid',
+    description: 'Bounced back from a difficult sprint with improved performance',
+    icon: '🦅',
+    color: '#EF4444',
+    rarity: 'epic',
+    category: 'growth',
+    points: 8,
+    awardCondition: 'Improve by 20%+ after a challenging sprint'
+  },
+  {
+    _id: '38',
+    name: 'Team Spirit',
+    description: 'Consistently supports team morale and collaboration',
+    icon: '🎊',
+    color: '#A855F7',
+    rarity: 'rare',
+    category: 'growth',
+    points: 5,
+    awardCondition: 'Recognized by teammates for positive contribution'
   }
+]
+
+function BadgeCatalogue() {
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  
+  // Use hardcoded badges (works without database)
+  const badges = allBadges
+  const earnedBadgeIds = [] // No earned badges in demo mode
 
   // Category configuration with icons and descriptions
   const categoryConfig = {
@@ -77,6 +499,12 @@ function BadgeCatalogue() {
       title: 'Special Recognition',
       description: 'Special badges for outstanding performance',
       gradient: 'linear-gradient(135deg, #EC4899, #DB2777)'
+    },
+    growth: {
+      icon: <FaSeedling />,
+      title: '🌱 Growth & Inclusion',
+      description: 'Badges celebrating effort, progress, and different contribution styles',
+      gradient: 'linear-gradient(135deg, #10B981, #34D399)'
     }
   }
 
@@ -97,6 +525,7 @@ function BadgeCatalogue() {
     'delivery',
     'flow',
     'collaboration',
+    'growth',
     'team',
     'milestone',
     'achievement',
