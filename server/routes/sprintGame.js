@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { getSprintAnalytics } = require('../utils/sprintDataParser');
+const { getSprintAnalytics, SCORING_CONFIG } = require('../utils/sprintDataParser');
 
 const CSV_PATH = path.join(__dirname, '../../data/Sanitized_data.csv');
 
@@ -28,11 +28,50 @@ router.get('/leaderboard', async (req, res) => {
     const analytics = getSprintAnalytics(CSV_PATH);
     res.json({
       leaderboard: analytics.leaderboard,
-      summary: analytics.summary
+      summary: analytics.summary,
+      scoringConfig: analytics.scoringConfig
     });
   } catch (error) {
     console.error('Error fetching leaderboard:', error);
     res.status(500).json({ message: 'Error fetching leaderboard', error: error.message });
+  }
+});
+
+/**
+ * Get badges
+ * GET /api/sprint-game/badges
+ */
+router.get('/badges', async (req, res) => {
+  try {
+    const analytics = getSprintAnalytics(CSV_PATH);
+    res.json({
+      badges: analytics.badges,
+      summary: analytics.summary
+    });
+  } catch (error) {
+    console.error('Error fetching badges:', error);
+    res.status(500).json({ message: 'Error fetching badges', error: error.message });
+  }
+});
+
+/**
+ * Get scoring configuration
+ * GET /api/sprint-game/scoring-config
+ */
+router.get('/scoring-config', async (req, res) => {
+  try {
+    res.json({
+      config: SCORING_CONFIG,
+      description: {
+        COMPLETED_BONUS: '+10 points for ≥95% completion',
+        ON_TRACK_BONUS: '+5 points for ≥80% completion (on-track)',
+        MOMENTUM_BONUS: '+3 points for momentum ≥+20%',
+        NO_PROGRESS_PENALTY: '-2 points for ≤0% momentum (no progress)'
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching scoring config:', error);
+    res.status(500).json({ message: 'Error fetching scoring config', error: error.message });
   }
 });
 

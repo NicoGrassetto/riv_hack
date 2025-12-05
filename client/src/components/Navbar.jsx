@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { FaTrophy, FaMedal, FaFire, FaUser, FaSignOutAlt, FaGamepad } from 'react-icons/fa'
+import { FaTrophy, FaMedal, FaFire, FaUser, FaGamepad } from 'react-icons/fa'
 import './Navbar.css'
 
-function Navbar({ onLogout }) {
+function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -30,9 +30,6 @@ function Navbar({ onLogout }) {
           <Link to="/profile" className="nav-link">
             <FaUser /> Profile
           </Link>
-          <button onClick={onLogout} className="nav-link logout-btn">
-            <FaSignOutAlt /> Logout
-          </button>
         </div>
       </div>
     </nav>
